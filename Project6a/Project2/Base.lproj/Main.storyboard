@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="33f-sW-yWO">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Project2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="53U-Ar-M7T">
+                                <rect key="frame" x="107" y="100" width="200" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="53U-Ar-M7T" secondAttribute="height" multiplier="2:1" id="pT5-vX-WnZ"/>
+                                </constraints>
+                                <state key="normal" image="us"/>
+                                <connections>
+                                    <action selector="buttonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8fy-o9-ybA"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yma-IO-JDB">
+                                <rect key="frame" x="107" y="360" width="200" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Yma-IO-JDB" secondAttribute="height" multiplier="2:1" id="6vo-vy-tpx"/>
+                                </constraints>
+                                <state key="normal" image="us"/>
+                                <connections>
+                                    <action selector="buttonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Kc8-3T-9Yl"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nqz-wx-2oi">
+                                <rect key="frame" x="107" y="230" width="200" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Nqz-wx-2oi" secondAttribute="height" multiplier="2:1" id="gXH-l5-DQF"/>
+                                </constraints>
+                                <state key="normal" image="us"/>
+                                <connections>
+                                    <action selector="buttonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KIh-9h-LUF"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemGray5Color"/>
+                        <constraints>
+                            <constraint firstItem="Yma-IO-JDB" firstAttribute="height" secondItem="Nqz-wx-2oi" secondAttribute="height" id="7NG-Q2-tK6"/>
+                            <constraint firstItem="Nqz-wx-2oi" firstAttribute="height" secondItem="53U-Ar-M7T" secondAttribute="height" id="KFp-bW-Zgk"/>
+                            <constraint firstItem="53U-Ar-M7T" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="12" id="Pja-aH-fKp"/>
+                            <constraint firstItem="Nqz-wx-2oi" firstAttribute="centerX" secondItem="53U-Ar-M7T" secondAttribute="centerX" id="Ryt-7F-9xI"/>
+                            <constraint firstItem="53U-Ar-M7T" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="UeD-wt-fAz"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Yma-IO-JDB" secondAttribute="bottom" constant="20" id="fLh-Pk-dBJ"/>
+                            <constraint firstItem="Nqz-wx-2oi" firstAttribute="top" secondItem="53U-Ar-M7T" secondAttribute="bottom" constant="30" id="hiv-ev-s5a"/>
+                            <constraint firstItem="Yma-IO-JDB" firstAttribute="top" secondItem="Nqz-wx-2oi" secondAttribute="bottom" constant="30" id="iLt-b1-wVS"/>
+                            <constraint firstItem="Yma-IO-JDB" firstAttribute="centerX" secondItem="Nqz-wx-2oi" secondAttribute="centerX" id="sej-sj-Xf1"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="3L9-oV-i5L"/>
+                    <connections>
+                        <outlet property="button1" destination="53U-Ar-M7T" id="nDE-iZ-cwb"/>
+                        <outlet property="button2" destination="Nqz-wx-2oi" id="awH-0f-YAh"/>
+                        <outlet property="button3" destination="Yma-IO-JDB" id="gky-fG-WPc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1084" y="-60"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="W9o-Di-VsY">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="33f-sW-yWO" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nDG-XZ-Uxt">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="IRP-4h-T4M"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z6O-x4-WUH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-23.188405797101453" y="76.339285714285708"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="us" width="200" height="100"/>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
