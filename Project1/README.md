@@ -57,5 +57,3 @@
 //
 ![](**SelectCell_OpenPhoto.gif**)
 ![](**ShareRecommend_AddToReadingList_AppIcon.gif**)
-<img src="**IMAGE**" width="200" height="400">
-<img src="**IMAGE**"  width="200" height="400">
