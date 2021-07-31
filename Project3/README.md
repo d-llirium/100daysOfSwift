@@ -1,4 +1,4 @@
-# [project 2 from 100 days of swift](https://www.hackingwithswift.com/100)
+# [project 3 from 100 days of swift](https://www.hackingwithswift.com/100)
 #### . [day **__**](https://www.hackingwithswift.com/100/**__**)
 #### . [day **__**](https://www.hackingwithswift.com/100/**__**)
 ##### .. TOPICS: 
@@ -22,9 +22,9 @@
 //
     
 //
-![](**PlaySelectFlag_ShowCorrectAnswer.gif**)
-![](**PlaySelectFlag_ShowCorrectAnswer.gif**)
-![](**FinalPlay_RetakeQuiz.gif**)
+![](**ScrollDownTableView.gif**)
+![](**SelectCell_OpenImage.gif**)
+![](**ShareImage.gif**)
 
 ####  . [day **__** challenge](https://www.hackingwithswift.com/100/)
 1.  **__**
