@@ -13,6 +13,7 @@
 3. **__**
 
 ![](**ScrollDownTableView.gif**)
+![](**CloseAndShowIcon.gif**)
 
 ### resolution by d_llirium
 ####  . [day **__** challenge](https://www.hackingwithswift.com/100/)
