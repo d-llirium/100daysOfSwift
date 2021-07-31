@@ -17,7 +17,7 @@ class ViewController: UITableViewController {
         title = ". storm viewer"
         navigationController?.navigationBar.prefersLargeTitles = true
         
-        //Challenge 2: add a bar button item to the main view controller that recommends the app to other people.
+        //day 22 - Challenge 2: add a bar button item to the main view controller that recommends the app to other people.
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "<3", style: .plain, target: self, action: #selector(shareTapped))
         
         let fm = FileManager.default
