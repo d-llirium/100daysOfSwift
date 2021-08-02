@@ -24,36 +24,36 @@
 2. In your main table view, show the image names in sorted order, so “nssl0033.jpg” comes before “nssl0034.jpg”.
 3. Rather than show image names in the detail title bar, show “Picture X of Y”, where Y is the total number of images and X is the selected picture’s position in the array. Make sure you count from 1 rather than 0.
 ##### .. at ViewController
-//
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        if let dvc = storyboard?.instantiateViewController(identifier: "Detail") as? DetailViewController {
-        
-        dvc.selectedImage = pictures[indexPath.row]
-        dvc.totalNumberOfPictures = pictures.count
-        dvc.currentPictureIndex = indexPath.row + 1
-        
-        navigationController?.pushViewController(dvc, animated: true)
+    //
+        override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            
+            if let dvc = storyboard?.instantiateViewController(identifier: "Detail") as? DetailViewController {
+            
+            dvc.selectedImage = pictures[indexPath.row]
+            dvc.totalNumberOfPictures = pictures.count
+            dvc.currentPictureIndex = indexPath.row + 1
+            
+            navigationController?.pushViewController(dvc, animated: true)
+            }
         }
-    }
-//
+    //
 
 ####  . day [22 challenge](https://www.hackingwithswift.com/100/22)
 2. add a bar button item to the main view controller that recommends the app to other people.
 ##### .. at ViewController
-//
-    override func viewDidLoad() {
     //
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "<3", style: .plain, target: self, action: #selector(shareTapped))
+        override func viewDidLoad() {
+        //
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "<3", style: .plain, target: self, action: #selector(shareTapped))
+        //
+        }
+        @objc func shareTapped() {
+            guard let myApp = URL(string: "https://apps.apple.com/app/thisApp") else { return }
+            let recommend = "I recommend"
+            let vc = UIActivityViewController(activityItems: [recommend, myApp], applicationActivities: [])
+            vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+            present(vc, animated: true)
+        }
     //
-    }
-    @objc func shareTapped() {
-        guard let myApp = URL(string: "https://apps.apple.com/app/thisApp") else { return }
-        let recommend = "I recommend"
-        let vc = UIActivityViewController(activityItems: [recommend, myApp], applicationActivities: [])
-        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-        present(vc, animated: true)
-    }
-//
-![](**SelectCell_OpenPhoto.gif**)
-![](**ShareRecommend_AddToReadingList_AppIcon.gif**)
+![](https://github.com/d-llirium/100daysOfSwift/blob/main/Project1/SelectCell_OpenPhoto.gif?raw=true)
+![](https://github.com/d-llirium/100daysOfSwift/blob/main/Project1/ShareRecommend_AddToReadingList_AppIcon.gif?raw=true)
