@@ -11,6 +11,9 @@
 
 
 ### resolution by d_llirium
+
+![](https://github.com/d-llirium/100daysOfSwift/blob/main/Project7/CreditButton.gif?raw=true) ![](https://github.com/d-llirium/100daysOfSwift/blob/main/Project7/ShowDetailViewControllerWithHTML.gif?raw=true) ![](https://github.com/d-llirium/100daysOfSwift/blob/main/Project7/SearchForPresident_FilterTableView.gif?raw=true)
+
 ####  . [day 35 challenge](https://www.hackingwithswift.com/100/35)
 1. Add a Credits button to the top-right corner using UIBarButtonItem. When this is tapped, show an alert telling users the data comes from the We The People API of the Whitehouse.
 ##### .. at ViewController
@@ -92,4 +95,3 @@
         }
     //
 
-![](https://github.com/d-llirium/100daysOfSwift/blob/main/Project7/CreditButton.gif?raw=true) ![](https://github.com/d-llirium/100daysOfSwift/blob/main/Project7/ShowDetailViewControllerWithHTML.gif?raw=true) ![](https://github.com/d-llirium/100daysOfSwift/blob/main/Project7/SearchForPresident_FilterTableView.gif?raw=true)
