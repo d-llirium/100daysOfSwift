@@ -30,8 +30,8 @@ class ViewController: UIViewController {
         cluesLabel.font = UIFont.systemFont(ofSize: 24) //font property describes what kind of text font is used to render the label, and is provided as a dedicated type that describes a font face and size: UIFont. -- 24-point font in whatever font is currently being used by iOS
         cluesLabel.text = "CLUES"
         cluesLabel.numberOfLines = 0//numberOfLines is an integer that sets how many lines the text can wrap over, but we’re going to set it to 0 – a magic value that means “as many lines as it takes.”
+        cluesLabel.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)//when Auto Layout has to decide which view to stretch they are first in line
         view.addSubview(cluesLabel)
-        cluesLabel.backgroundColor = .red
         
         answersLabel = UILabel()//create the empty label
         answersLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -39,8 +39,8 @@ class ViewController: UIViewController {
         answersLabel.text = "ANSWERS"
         answersLabel.textAlignment = .right
         answersLabel.numberOfLines = 0
+        answersLabel.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)//when Auto Layout has to decide which view to stretch they are first in line
         view.addSubview(answersLabel)
-        answersLabel.backgroundColor = .blue
         
         currentAnswer = UITextField() //create an empty text field
         currentAnswer.translatesAutoresizingMaskIntoConstraints = false
@@ -63,7 +63,6 @@ class ViewController: UIViewController {
         let buttonsView = UIView()//UIView – it does nothing special other than host our buttons.
         buttonsView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(buttonsView)
-        buttonsView.backgroundColor = .green
         
         //MARK: - AUTOLAYOUT CONSTRAINTS
         NSLayoutConstraint.activate([//accepts an array of constraints
@@ -97,6 +96,22 @@ class ViewController: UIViewController {
             buttonsView.topAnchor.constraint(equalTo: submit.bottomAnchor, constant: 20),//its top anchor to be the bottom of the submit button, plus 20 points to add a little spacing.
             buttonsView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20)//pin it to the bottom of our layout margins, -20 so that it doesn’t run quite to the edge
         ])
+        
+        let width = 150 //represents the width of the buttons
+        let height = 80 //represents the height of the buttons
+        
+        for row in 0..<4 { //because we have 4 rows
+            for column in 0..<5 {//because we have 5 columns
+                let letterButton = UIButton(type: .system)//Create a new button
+                letterButton.titleLabel?.font = UIFont.systemFont(ofSize: 36)// with a nice and large font of 36
+                letterButton.setTitle("WWW", for: .normal)// give the button some temporary text so we can see it on-screen
+                
+                let frame = CGRect(x: column * width, y: row * height, width: width, height: height)// calculate the frame of this button using its column and row -- Calculate the X position of the button as being our column number multiplied by the button width. AND Calculate the Y position of the button as being our row number multiplied by the button height.
+                letterButton.frame = frame
+                buttonsView.addSubview(letterButton)//Add it to the buttonsView
+                letterButtons.append(letterButton) //add the new button to the array of UIButtons
+            }
+        }
     }
 
     override func viewDidLoad() {
