@@ -16,7 +16,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //adds a bar button item that shows their score when tapped.
+        //adds a bar button item that shares the image when tapped.
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(showTapped))
         
         if let countryFlag = selectedCountry {
