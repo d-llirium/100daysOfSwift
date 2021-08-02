@@ -2,8 +2,7 @@
 
 ### . [project1](https://github.com/d-llirium/100daysOfSwift/blob/main/Project1/README.md)
 
-<img src="https://github.com/d-llirium/100daysOfSwift/blob/main/project1_screen1.png?raw=true" width="200" height="400">
-<img src="https://github.com/d-llirium/100daysOfSwift/blob/main/project1_screen2.png?raw=true"  width="200" height="400">
+<img src="https://github.com/d-llirium/100daysOfSwift/blob/main/project1_screen1.png?raw=true" width="200" height="400"> <img src="https://github.com/d-llirium/100daysOfSwift/blob/main/project1_screen2.png?raw=true"  width="200" height="400">
 
 ### . [project2](**https://REAME project2**)
 
