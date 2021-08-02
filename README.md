@@ -10,9 +10,7 @@
 
 ### . [project3](**https://REAME project3**)
 
-<img src="**project3_screen1**" width="200" height="400">
-<img src="**project3_screen2**" width="200" height="400">
-<img src="**project3_screen3**" width="200" height="400">
+<img src="https://github.com/d-llirium/100daysOfSwift/blob/main/project3_screen1.png?raw=true" width="200" height="400"> <img src="https://github.com/d-llirium/100daysOfSwift/blob/main/project3_screen2.png?raw=true" width="200" height="400"> <img src="https://github.com/d-llirium/100daysOfSwift/blob/main/project3_screen3.png?raw=true" width="200" height="400">
 
 ### . [project1-3](**https://REAME project1-3**)
 
