@@ -55,5 +55,4 @@
             present(vc, animated: true)
         }
     //
-![](https://github.com/d-llirium/100daysOfSwift/blob/main/Project1/SelectCell_OpenPhoto.gif?raw=true)
-![](https://github.com/d-llirium/100daysOfSwift/blob/main/Project1/ShareRecommend_AddToReadingList_AppIcon.gif?raw=true)
+![](https://github.com/d-llirium/100daysOfSwift/blob/main/Project1/SelectCell_OpenPhoto.gif?raw=true) ![](https://github.com/d-llirium/100daysOfSwift/blob/main/Project1/ShareRecommend_AddToReadingList_AppIcon.gif?raw=true)

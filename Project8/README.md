@@ -2,13 +2,15 @@
 #### . [day **36**](https://www.hackingwithswift.com/100/36)
 #### . [day **__**](https://www.hackingwithswift.com/100/**__**)
 ##### .. TOPICS: 
-... <>
+...  text alignment
+... layout margins
+... UIFont
 ... <>
 ... <FileManager>
 ... <typecasting>
 
 ##### .. IMPLEMENTATION:
-1. 
+1. Building a UIKit user interface programmatically
 2. **__**
 3. **__**
 
