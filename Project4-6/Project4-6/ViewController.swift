@@ -39,7 +39,6 @@ class ViewController: UITableViewController {
     //MARK: - Navigation Item
     @objc func promptForItem() {
         let ac = UIAlertController(title: "enter item", message: nil, preferredStyle: .alert)
-        
         ac.addTextField()
      
         let submitAction = UIAlertAction(title: "submit", style: .default) {
