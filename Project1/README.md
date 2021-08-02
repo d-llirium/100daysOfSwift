@@ -22,20 +22,39 @@
 ####  . day [18 challenge](https://www.hackingwithswift.com/100/18)
 1.  Use Interface Builder to select the text label inside your table view cell and adjust its font size to something larger – experiment and see what looks good.
 2. In your main table view, show the image names in sorted order, so “nssl0033.jpg” comes before “nssl0034.jpg”.
-3. Rather than show image names in the detail title bar, show “Picture X of Y”, where Y is the total number of images and X is the selected picture’s position in the array. Make sure you count from 1 rather than 0.
 ##### .. at ViewController
     //
-        override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            
-            if let dvc = storyboard?.instantiateViewController(identifier: "Detail") as? DetailViewController {
-            
-            dvc.selectedImage = pictures[indexPath.row]
-            dvc.totalNumberOfPictures = pictures.count
-            dvc.currentPictureIndex = indexPath.row + 1
-            
-            navigationController?.pushViewController(dvc, animated: true)
+    override func viewDidLoad() {
+        let fm = FileManager.default
+        //bundle = .app directories
+        let path = Bundle.main.resourcePath!
+        //The items constant will be an array of strings containing filenames
+        let items = try! fm.contentsOfDirectory(atPath: path)
+        for item in items{
+            if item.hasPrefix("nssl"){
+                //this is a picture to load
+                pictures.append(item)
             }
         }
+        pictures = pictures.sorted()
+        print(pictures)
+    }
+    //
+3. Rather than show image names in the detail title bar, show “Picture X of Y”, where Y is the total number of images and X is the selected picture’s position in the array. Make sure you count from 1 rather than 0.
+##### .. at DetailViewController
+    //
+    var totalNumberOfPictures = 0
+    var currentPictureIndex = 0
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        title = "Picture \(currentPictureIndex) of \(totalNumberOfPictures)"
+        navigationItem.largeTitleDisplayMode = .never
+        
+        if let imageToLoad = selectedImage {
+            imageView.image = UIImage(named: imageToLoad)
+        }
+    }
     //
 
 ####  . day [22 challenge](https://www.hackingwithswift.com/100/22)
