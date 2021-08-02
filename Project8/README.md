@@ -1,5 +1,5 @@
 # [project 8 from 100 days of swift](https://www.hackingwithswift.com/100)
-#### . [day **36**](https://www.hackingwithswift.com/100/36)
+#### . [day 36](https://www.hackingwithswift.com/100/36)
 #### . [day **__**](https://www.hackingwithswift.com/100/**__**)
 ##### .. TOPICS: 
 ...  text alignment
