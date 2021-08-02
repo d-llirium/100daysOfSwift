@@ -6,10 +6,7 @@
 
 ### . [project2](**https://REAME project2**)
 
-<img src="**project2_screen1**" width="200" height="400">
-<img src="**project2_screen2**" width="200" height="400">
-<img src="**project2_screen3**" width="200" height="400">
-<img src="**project2_screen4**" width="200" height="400">
+<img src="https://github.com/d-llirium/100daysOfSwift/blob/main/project2_screen1.png?raw=true" width="200" height="400">  <img src="https://github.com/d-llirium/100daysOfSwift/blob/main/project2_screen2.png?raw=true" width="200" height="400">  <img src="https://github.com/d-llirium/100daysOfSwift/blob/main/project2_screen3.png?raw=true" width="200" height="400"> <img src="https://github.com/d-llirium/100daysOfSwift/blob/main/project2_screen4.png?raw=true" width="200" height="400"> 
 
 ### . [project3](**https://REAME project3**)
 

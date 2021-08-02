@@ -43,7 +43,7 @@ class ViewController: UIViewController {
         button2.setImage(UIImage(named: countries[1]), for: .normal)
         button3.setImage(UIImage(named: countries[2]), for: .normal)
         
-        //day 22 - Challenge 2: Try showing the player’s score in the navigation bar, alongside the flag to guess.
+        //day 21 - Challenge 1: Try showing the player’s score in the navigation bar, alongside the flag to guess.
         title = "score = \(score) ...\(countries[correctAnswer].uppercased())"
     }
     //connected to the 3 buttons

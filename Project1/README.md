@@ -19,6 +19,9 @@
 3. Loading images with UIImage
 
 ### resolution by d_llirium
+
+![](https://github.com/d-llirium/100daysOfSwift/blob/main/Project1/SelectCell_OpenPhoto.gif?raw=true) ![](https://github.com/d-llirium/100daysOfSwift/blob/main/Project1/ShareRecommend_AddToReadingList_AppIcon.gif?raw=true)
+
 ####  . day [18 challenge](https://www.hackingwithswift.com/100/18)
 1.  Use Interface Builder to select the text label inside your table view cell and adjust its font size to something larger – experiment and see what looks good.
 2. In your main table view, show the image names in sorted order, so “nssl0033.jpg” comes before “nssl0034.jpg”.
@@ -74,4 +77,3 @@
             present(vc, animated: true)
         }
     //
-![](https://github.com/d-llirium/100daysOfSwift/blob/main/Project1/SelectCell_OpenPhoto.gif?raw=true) ![](https://github.com/d-llirium/100daysOfSwift/blob/main/Project1/ShareRecommend_AddToReadingList_AppIcon.gif?raw=true)
