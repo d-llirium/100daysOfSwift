@@ -14,6 +14,16 @@ class ViewController: UIViewController {
     var scoreLabel: UILabel!
     var letterButtons = [UIButton]()
     
+    var activatedButtons = [UIButton]() //buttons tapped by the user
+    var solutions = [String]() //correct words
+    
+    var score = 0 {
+        didSet {//add a property observer to our score property so that we update the score label whenever the score value was changed
+            scoreLabel.text = "SCORE: \(score)"
+        }
+    }
+    var level = 1
+    
     override func loadView() {//creates our user interface in code
         view = UIView()//UIView is the parent class of all of UIKit’s view types: labels, buttons, progress views, and more
         view.backgroundColor = .white //create the main view itself as a big and white empty space
@@ -53,11 +63,13 @@ class ViewController: UIViewController {
         let submit = UIButton(type: .system)
         submit.translatesAutoresizingMaskIntoConstraints = false
         submit.setTitle("SUBMIT", for: .normal)
+        submit.addTarget(self, action: #selector(submitTapped), for: .touchUpInside)//saying that the user pressed down on the button and lifted their touch while it was still inside. So, altogether that line means “when the user presses the submit button, call submitTapped() on the current view controller.”
         view.addSubview(submit)
         
         let clear = UIButton(type: .system)
         clear.translatesAutoresizingMaskIntoConstraints = false
         clear.setTitle("CLEAR", for: .normal)
+        clear.addTarget(self, action: #selector(clearTapped), for: .touchUpInside)
         view.addSubview(clear)
         
         let buttonsView = UIView()//UIView – it does nothing special other than host our buttons.
@@ -105,6 +117,7 @@ class ViewController: UIViewController {
                 let letterButton = UIButton(type: .system)//Create a new button
                 letterButton.titleLabel?.font = UIFont.systemFont(ofSize: 36)// with a nice and large font of 36
                 letterButton.setTitle("WWW", for: .normal)// give the button some temporary text so we can see it on-screen
+                letterButton.addTarget(self, action: #selector(letterTapped), for: .touchUpInside)
                 
                 let frame = CGRect(x: column * width, y: row * height, width: width, height: height)// calculate the frame of this button using its column and row -- Calculate the X position of the button as being our column number multiplied by the button width. AND Calculate the Y position of the button as being our row number multiplied by the button height.
                 letterButton.frame = frame
@@ -116,9 +129,89 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        loadLevel()
     }
-
+    @objc func letterTapped(_ sender: UIButton){
+        guard let buttonTitle = sender.titleLabel?.text else { return } //It adds a safety check to read the title from the tapped button, or exit if it didn’t have one for some reason.
+        currentAnswer.text = currentAnswer.text?.appending(buttonTitle) //Appends that button title to the player’s current answer.
+        activatedButtons.append(sender)//Appends the button to the activatedButtons array
+        sender.isHidden = true//Hides the button that was tapped.
+    }
+    @objc func submitTapped(_ sender: UIButton){
+        guard let answerText = currentAnswer.text else { return }
+        
+        if let solutionPosition = solutions.firstIndex(of: answerText) { //use firstIndex(of:) to search through the solutions array for an item and, if it finds it, tells us its position
+            activatedButtons.removeAll()
+            
+            var splitAnswers = answersLabel.text?.components(separatedBy: "\n") //split text into an array
+            splitAnswers?[solutionPosition] = answerText//change the answers label so that rather than saying "7 LETTERS" it says "HAUNTED", so they know which ones they have solved already.
+            answersLabel.text = splitAnswers?.joined(separator: "\n")//makes an array into a single string, with each array element separated by the string specified in its parameter.
+            
+            currentAnswer.text = ""//clear the current answer text field
+            score += 1//add one to the score
+            
+            if score % 7 == 0 { // If the score is evenly divisible by 7,
+                let ac = UIAlertController(title: ". well done!", message: ".. are you ready for the next level?", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "... let's go!", style: .default, handler: levelUp))
+                present(ac, animated: true)
+            }
+        }
+    }
+    func levelUp(action: UIAlertAction){
+        level += 1//Add 1 to level.
+        
+        solutions.removeAll(keepingCapacity: true)//Remove all items from the solutions array.
+        loadLevel()//Call loadLevel() so that a new level file is loaded and shown.
+        
+        for button in letterButtons {
+            button.isHidden = false
+        }
+    }
+    @objc func clearTapped(_ sender: UIButton){
+        currentAnswer.text = ""//removes the text from the current answer text field
+        for button in activatedButtons {
+            button.isHidden = false //unhides all the activated buttons
+        }
+        activatedButtons.removeAll()//removes all the items from the activatedButtons array
+    }
+    func loadLevel(){
+        var clueString = ""//will store all the level's clues
+        var solutionsString = ""//will store how many letters each answer is (in the same position as the clues)
+        var letterBits = [String]()//is an array to store all letter groups: HA, UNT, ED, and so on.
+        
+        if let levelFileURL = Bundle.main.url(forResource: "level\(level)", withExtension: "txt"){
+            if let levelContents = try? String(contentsOf: levelFileURL){ //uses url(forResource:) and contentsOf to find and load the level string from our app bundle.
+                var lines = levelContents.components(separatedBy: "\n")
+                lines.shuffle()//The text is then split into an array by breaking on the \n character (that's line break, remember), then shuffled so that the game is a little different each time.
+                
+                for (index,line) in lines.enumerated() {
+                    let parts = line.components(separatedBy: ": ")//we split each line up based on finding :, because each line has a colon and a space separating its letter groups from its clue
+                    let answer = parts[0]//first part of the split line into answer
+                    let clue = parts[1]//second part into clue
+                    
+                    clueString += "\(index+1). \(clue)\n"
+                    
+                    let solutionWord = answer.replacingOccurrences(of: "|", with: "")
+                    solutionsString += "\(solutionWord.count) letters\n"
+                    solutions.append(solutionWord)
+                    
+                    let bits = answer.components(separatedBy: "|")
+                    letterBits += bits
+                }
+            }
+        }
+        cluesLabel.text = clueString.trimmingCharacters(in: .whitespacesAndNewlines)//trimmingCharacters(in:)  removes any letters you specify from the start and end of a string. -- .whitespacesAndNewlines, which trims spaces, tabs and line breaks, and we need exactly that here because our clue string and solutions string will both end up with an extra line break
+        answersLabel.text = solutionsString.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        letterButtons.shuffle()
+        
+        if letterButtons.count == letterBits.count{
+            for i in 0..<letterButtons.count {//Looping from 0 to 19 (inclusive) means we can use the i variable to set a button to a letter group.
+                letterButtons[i].setTitle(letterBits[i], for: .normal)
+            }
+        }
+    }
 
 }
 
