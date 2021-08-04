@@ -13,9 +13,7 @@
 
 ### resolution by d_llirium
 
-![](**.gif**)
-![](**.gif**)
-![](**.gif**)
+![](https://github.com/d-llirium/100daysOfSwift/blob/main/Project8/SbmittingCorrectAnswers.gif?raw=true) ![](https://github.com/d-llirium/100daysOfSwift/blob/main/Project8/SbmittingWrongAnswer.gif?raw=true) ![](https://github.com/d-llirium/100daysOfSwift/blob/main/Project8/GoingNextLevel.gif?raw=true)
 
 
 ####  . [day 38 challenge](https://www.hackingwithswift.com/100/38)
