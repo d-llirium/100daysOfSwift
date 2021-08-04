@@ -119,8 +119,15 @@ class ViewController: UIViewController {
                 letterButton.setTitle("WWW", for: .normal)// give the button some temporary text so we can see it on-screen
                 letterButton.addTarget(self, action: #selector(letterTapped), for: .touchUpInside)
                 
-                let frame = CGRect(x: column * width, y: row * height, width: width, height: height)// calculate the frame of this button using its column and row -- Calculate the X position of the button as being our column number multiplied by the button width. AND Calculate the Y position of the button as being our row number multiplied by the button height.
+                let frame = CGRect(x: column * width, y: row * height, width: width - 5, height: height - 5)// calculate the frame of this button using its column and row -- Calculate the X position of the button as being our column number multiplied by the button width. AND Calculate the Y position of the button as being our row number multiplied by the button height. - 5 to put a small space beween them
                 letterButton.frame = frame
+                
+                //day 38 - Challenge 1:Use the techniques you learned in project 2 to draw a thin gray line around the buttons view, to make it stand out from the rest of the UI.
+                letterButton.layer.borderWidth = 1
+                letterButton.layer.borderColor = UIColor.lightGray.cgColor
+                letterButton.layer.cornerRadius = 8 //++round the edges
+                letterButton.backgroundColor = .systemGray5
+                
                 buttonsView.addSubview(letterButton)//Add it to the buttonsView
                 letterButtons.append(letterButton) //add the new button to the array of UIButtons
             }
