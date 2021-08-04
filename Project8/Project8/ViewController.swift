@@ -22,6 +22,8 @@ class ViewController: UIViewController {
             scoreLabel.text = "SCORE: \(score)"
         }
     }
+    var levelSteps = 0
+    
     var level = 1
     
     override func loadView() {//creates our user interface in code
@@ -157,12 +159,19 @@ class ViewController: UIViewController {
             
             currentAnswer.text = ""//clear the current answer text field
             score += 1//add one to the score
-            
-            if score % 7 == 0 { // If the score is evenly divisible by 7,
+            //day 38 - Challenge 3:  Try making the game also deduct points if the player makes an incorrect guess. Think about how you can move to the next level – we can’t use a simple division remainder on the player’s score any more, because they might have lost some points.
+            levelSteps += 1
+            if levelSteps == 7 { 
                 let ac = UIAlertController(title: ". well done!", message: ".. are you ready for the next level?", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "... let's go!", style: .default, handler: levelUp))
                 present(ac, animated: true)
             }
+        } else {
+            score -= 1
+            //day 38 - Challenge: . If the user enters an incorrect guess, show an alert telling them they are wrong. You’ll need to extend the submitTapped() method so that if firstIndex(of:) failed to find the guess you show the alert.
+            let ac = UIAlertController(title: "NOT THIS TIME", message: ".. clear and try it again", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "one more time", style: .cancel))
+            present(ac, animated: true)
         }
     }
     func levelUp(action: UIAlertAction){
