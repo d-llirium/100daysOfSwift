@@ -30,11 +30,13 @@ class ViewController: UITableViewController {
         } else {//the second loads only petitions that have at least 10,000 signatures
             urlString = "https://www.hackingwithswift.com/samples/petitions-2.json"
         }
-        
-        if let url = URL(string: urlString){ //to make sure the URL is valid
-            if let data = try? Data(contentsOf: url){//returns the content from a URL, but it might throw an error (i.e., if the internet connection was down) so we need to use try?.
-                parse(json: data)
-                return
+        DispatchQueue.global(qos: .userInitiated).async { //make all our loading code run in the background queue with user-initiated quality of service
+            [weak self] in //make sure there aren’t any accident strong reference cycles
+            if let url = URL(string: urlString){ //to make sure the URL is valid
+                if let data = try? Data(contentsOf: url){//returns the content from a URL, but it might throw an error (i.e., if the internet connection was down) so we need to use try?.
+                    self?.parse(json: data)
+                    return
+                }
             }
         }
         showError()
