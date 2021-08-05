@@ -38,8 +38,8 @@ class ViewController: UITableViewController {
                     return
                 }
             }
+            self?.showError()
         }
-        showError()
     }
     func parse(json: Data) {
         let decoder = JSONDecoder()//creates an instance of JSONDecoder, which is dedicated to converting between JSON and Codable objects.
@@ -47,13 +47,22 @@ class ViewController: UITableViewController {
         if let jsonPetitions = try? decoder.decode(Petitions.self, from: json) {//calls the decode() method on that decoder, asking it to convert our json data into a Petitions object. This is a throwing call, so we use try? to check whether it worked.---Petitions.self, which is Swift’s way of referring to the Petitions type itself rather than an instance of it. That is, we’re not saying “create a new one”, but instead specifying it as a parameter to the decoding so JSONDecoder knows what to convert the JSON too.
             self.allPetitions = jsonPetitions.results//assign the results array to our petitions property
             self.filteredPetitions = allPetitions
-            tableView.reloadData()//reload the table view.
+            
+            DispatchQueue.main.async {
+                [weak self] in
+                self?.tableView.reloadData()//reload the table view.
+                
+            }
         }
     }
     func showError(){ //creates a UIAlertController showing a general failure message
-        let ac = UIAlertController(title: ". loading error", message: ".. there was a problem loading the feed; please check your connection and try again.", preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "ok", style: .default))
-        present(ac, animated: true)
+        DispatchQueue.main.async{
+            [weak self] in
+            let ac = UIAlertController(title: ". loading error", message: ".. there was a problem loading the feed; please check your connection and try again.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "ok", style: .default))
+            self?.present(ac, animated: true)
+        }
+        
     }
     @objc func popCredit(){
         let ac = UIAlertController(title: "credits", message: "the data from this app comes from the We The People API of the Whitehouse", preferredStyle: .alert)
