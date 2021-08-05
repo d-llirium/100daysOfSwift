@@ -1,13 +1,11 @@
-# [project 7 from 100 days of swift](https://www.hackingwithswift.com/100)
-#### . [day 33](https://www.hackingwithswift.com/100/33)
-#### . [day 34](https://www.hackingwithswift.com/100/34)
+# [project 9 from 100 days of swift](https://www.hackingwithswift.com/100)
+#### . [day 39](https://www.hackingwithswift.com/100/39)
+
 ##### .. TOPICS: 
-...  UITabBarController
-... UIStoryboard
+...  
 
 ##### .. IMPLEMENTATION:
-1. download JSON using Swift’s Data type
-2. use the Codable protocol to convert that data into Swift object
+1. 
 
 
 ### resolution by d_llirium
