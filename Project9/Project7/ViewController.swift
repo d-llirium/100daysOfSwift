@@ -14,6 +14,9 @@ class ViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        performSelector(inBackground: #selector(fetchJSON), with: nil)//pass it the name of a method to run, and inBackground will run it on a background thread
+        
         //day 35 - Challenge 1: Add a Credits button to the top-right corner using UIBarButtonItem.
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "credits", style: .plain, target: self, action: #selector(popCredit))
         
@@ -23,23 +26,21 @@ class ViewController: UITableViewController {
         let refreshItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(reloadPetitions))
         
         navigationItem.leftBarButtonItems = [refreshItem,searchItem]
-        
+    }
+    @objc func fetchJSON(){
         let urlString: String
         if navigationController?.tabBarItem.tag == 0 { //the first instance of ViewController loads the original JSON
             urlString = "https://www.hackingwithswift.com/samples/petitions-1.json" //urlString accessing the available petitions.
         } else {//the second loads only petitions that have at least 10,000 signatures
             urlString = "https://www.hackingwithswift.com/samples/petitions-2.json"
         }
-        DispatchQueue.global(qos: .userInitiated).async { //make all our loading code run in the background queue with user-initiated quality of service
-            [weak self] in //make sure there aren’t any accident strong reference cycles
-            if let url = URL(string: urlString){ //to make sure the URL is valid
-                if let data = try? Data(contentsOf: url){//returns the content from a URL, but it might throw an error (i.e., if the internet connection was down) so we need to use try?.
-                    self?.parse(json: data)
-                    return
-                }
+        if let url = URL(string: urlString){ //to make sure the URL is valid
+            if let data = try? Data(contentsOf: url){//returns the content from a URL, but it might throw an error (i.e., if the internet connection was down) so we need to use try?.
+                parse(json: data)
+                return
             }
-            self?.showError()
         }
+        performSelector(onMainThread: #selector(showError), with: nil, waitUntilDone: false) //wil run the showError on the Main thread
     }
     func parse(json: Data) {
         let decoder = JSONDecoder()//creates an instance of JSONDecoder, which is dedicated to converting between JSON and Codable objects.
@@ -47,22 +48,16 @@ class ViewController: UITableViewController {
         if let jsonPetitions = try? decoder.decode(Petitions.self, from: json) {//calls the decode() method on that decoder, asking it to convert our json data into a Petitions object. This is a throwing call, so we use try? to check whether it worked.---Petitions.self, which is Swift’s way of referring to the Petitions type itself rather than an instance of it. That is, we’re not saying “create a new one”, but instead specifying it as a parameter to the decoding so JSONDecoder knows what to convert the JSON too.
             self.allPetitions = jsonPetitions.results//assign the results array to our petitions property
             self.filteredPetitions = allPetitions
-            
-            DispatchQueue.main.async {
-                [weak self] in
-                self?.tableView.reloadData()//reload the table view.
-                
-            }
+            tableView.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)//reload the tableView on the main thread when the load is finished
+        } else {
+            performSelector(onMainThread: #selector(showError), with: nil, waitUntilDone: false)
         }
     }
-    func showError(){ //creates a UIAlertController showing a general failure message
-        DispatchQueue.main.async{
-            [weak self] in
-            let ac = UIAlertController(title: ". loading error", message: ".. there was a problem loading the feed; please check your connection and try again.", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "ok", style: .default))
-            self?.present(ac, animated: true)
-        }
+    @objc func showError(){ //creates a UIAlertController showing a general failure message
         
+        let ac = UIAlertController(title: ". loading error", message: ".. there was a problem loading the feed; please check your connection and try again.", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "ok", style: .default))
+        present(ac, animated: true)
     }
     @objc func popCredit(){
         let ac = UIAlertController(title: "credits", message: "the data from this app comes from the We The People API of the Whitehouse", preferredStyle: .alert)
