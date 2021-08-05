@@ -44,6 +44,18 @@
     }
     //
 3. Rather than show image names in the detail title bar, show “Picture X of Y”, where Y is the total number of images and X is the selected picture’s position in the array. Make sure you count from 1 rather than 0.
+
+##### .. at ViewController
+    //
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let dvc = storyboard?.instantiateViewController(identifier: "Detail") as? DetailViewController {
+            dvc.selectedImage = pictures[indexPath.row]
+            dvc.totalNumberOfPictures = pictures.count
+            dvc.currentPictureIndex = indexPath.row + 1
+            navigationController?.pushViewController(dvc, animated: true)
+        }
+    }
+    //
 ##### .. at DetailViewController
     //
     var totalNumberOfPictures = 0
