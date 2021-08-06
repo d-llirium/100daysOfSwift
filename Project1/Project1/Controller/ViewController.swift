@@ -19,7 +19,11 @@ class ViewController: UITableViewController {
         
         //day 22 - Challenge 2: add a bar button item to the main view controller that recommends the app to other people.
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "<3", style: .plain, target: self, action: #selector(shareTapped))
-        
+        performSelector(inBackground: #selector(loadNSSLimages), with: nil)
+
+    }
+    //day 40 - Challenge 1 : Modify project 1 so that loading the list of NSSL images from our bundle happens in the background. Make sure you call reloadData() on the table view once loading has finished!
+    @objc func loadNSSLimages(){
         let fm = FileManager.default
         //bundle = .app directories
         let path = Bundle.main.resourcePath!
@@ -33,6 +37,7 @@ class ViewController: UITableViewController {
         }
         pictures = pictures.sorted()
         print(pictures)
+        tableView.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)
     }
     //MARK: - TableView Methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
