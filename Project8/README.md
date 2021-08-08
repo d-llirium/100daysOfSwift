@@ -73,3 +73,66 @@
         }
         //
 
+####  . [day 40 challenge](https://www.hackingwithswift.com/100/40)
+2.  Modify project 8 so that loading and parsing a level takes place in the background. Once you’re done, make sure you update the UI on the main thread!
+##### .. at ViewController
+    //
+        var clueString = ""
+        var solutionsString = ""
+        var letterBits = [String]()
+        //
+        override func viewDidLoad() {
+            
+            performSelector(inBackground: #selector(loadLevel), with: nil)
+        }
+        //
+        func levelUp(action: UIAlertAction){
+            level += 1
+            solutions.removeAll(keepingCapacity: true)
+            
+            performSelector(inBackground: #selector(loadLevel), with: nil)
+            
+            for button in letterButtons {
+                button.isHidden = false
+            }
+        }
+        //
+        @objc func loadLevel(){
+            
+            if let levelFileURL = Bundle.main.url(forResource: "level\(level)", withExtension: "txt"){
+                if let levelContents = try? String(contentsOf: levelFileURL){ //uses url(forResource:) and contentsOf to find and load the level string from our app bundle.
+                    var lines = levelContents.components(separatedBy: "\n")
+                    lines.shuffle()//The text is then split into an array by breaking on the \n character (that's line break, remember), then shuffled so that the game is a little different each time.
+                    
+                    for (index,line) in lines.enumerated() {
+                        let parts = line.components(separatedBy: ": ")//we split each line up based on finding :, because each line has a colon and a space separating its letter groups from its clue
+                        let answer = parts[0]//first part of the split line into answer
+                        let clue = parts[1]//second part into clue
+                        
+                        clueString += "\(index+1). \(clue)\n"
+                        
+                        let solutionWord = answer.replacingOccurrences(of: "|", with: "")
+                        solutionsString += "\(solutionWord.count) letters\n"
+                        solutions.append(solutionWord)
+                        
+                        let bits = answer.components(separatedBy: "|")
+                        letterBits += bits
+                    }
+                }
+            }
+            performSelector(onMainThread: #selector(createLabels), with: nil, waitUntilDone: false)
+        }
+        @objc func createLabels(){
+            cluesLabel.text = clueString.trimmingCharacters(in: .whitespacesAndNewlines)//trimmingCharacters(in:)  removes any letters you specify from the start and end of a string. -- .whitespacesAndNewlines, which trims spaces, tabs and line breaks, and we need exactly that here because our clue string and solutions string will both end up with an extra line break
+            answersLabel.text = solutionsString.trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            letterButtons.shuffle()
+            
+            if letterButtons.count == letterBits.count{
+                for i in 0..<letterButtons.count {//Looping from 0 to 19 (inclusive) means we can use the i variable to set a button to a letter group.
+                    letterButtons[i].setTitle(letterBits[i], for: .normal)
+                }
+            }
+        }
+    
+    //

@@ -26,6 +26,11 @@ class ViewController: UIViewController {
     
     var level = 1
     
+    var clueString = ""//will store all the level's clues
+    var solutionsString = ""//will store how many letters each answer is (in the same position as the clues)
+    var letterBits = [String]()//is an array to store all letter groups: HA, UNT, ED, and so on.
+    
+    
     override func loadView() {//creates our user interface in code
         view = UIView()//UIView is the parent class of all of UIKit’s view types: labels, buttons, progress views, and more
         view.backgroundColor = .white //create the main view itself as a big and white empty space
@@ -139,7 +144,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadLevel()
+        //day 40 .Challenge 2: Modify project 8 so that loading and parsing a level takes place in the background. Once you’re done, make sure you update the UI on the main thread!
+        performSelector(inBackground: #selector(loadLevel), with: nil)
     }
     @objc func letterTapped(_ sender: UIButton){
         guard let buttonTitle = sender.titleLabel?.text else { return } //It adds a safety check to read the title from the tapped button, or exit if it didn’t have one for some reason.
@@ -178,7 +184,7 @@ class ViewController: UIViewController {
         level += 1//Add 1 to level.
         
         solutions.removeAll(keepingCapacity: true)//Remove all items from the solutions array.
-        loadLevel()//Call loadLevel() so that a new level file is loaded and shown.
+        performSelector(inBackground: #selector(loadLevel), with: nil)//Call loadLevel() so that a new level file is loaded and shown.
         
         for button in letterButtons {
             button.isHidden = false
@@ -191,10 +197,7 @@ class ViewController: UIViewController {
         }
         activatedButtons.removeAll()//removes all the items from the activatedButtons array
     }
-    func loadLevel(){
-        var clueString = ""//will store all the level's clues
-        var solutionsString = ""//will store how many letters each answer is (in the same position as the clues)
-        var letterBits = [String]()//is an array to store all letter groups: HA, UNT, ED, and so on.
+    @objc func loadLevel(){
         
         if let levelFileURL = Bundle.main.url(forResource: "level\(level)", withExtension: "txt"){
             if let levelContents = try? String(contentsOf: levelFileURL){ //uses url(forResource:) and contentsOf to find and load the level string from our app bundle.
@@ -217,6 +220,9 @@ class ViewController: UIViewController {
                 }
             }
         }
+        performSelector(onMainThread: #selector(createLabels), with: nil, waitUntilDone: false)
+    }
+    @objc func createLabels(){
         cluesLabel.text = clueString.trimmingCharacters(in: .whitespacesAndNewlines)//trimmingCharacters(in:)  removes any letters you specify from the start and end of a string. -- .whitespacesAndNewlines, which trims spaces, tabs and line breaks, and we need exactly that here because our clue string and solutions string will both end up with an extra line break
         answersLabel.text = solutionsString.trimmingCharacters(in: .whitespacesAndNewlines)
         
@@ -228,6 +234,5 @@ class ViewController: UIViewController {
             }
         }
     }
-
 }
 
