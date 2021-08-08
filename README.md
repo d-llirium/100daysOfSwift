@@ -24,7 +24,7 @@
 
 ### . [project6a](https://github.com/d-llirium/100daysOfSwift/blob/main/Project6a/README.md)
 
-<img src="**project_screen**" width="200" height="400">
+<img src="https://github.com/d-llirium/100daysOfSwift/blob/main/project6a_screen1.png?raw=true" width="200" height="400">  <img src="https://github.com/d-llirium/100daysOfSwift/blob/main/project6a_screen2.png?raw=true" width="200" height="400"> <img src="https://github.com/d-llirium/100daysOfSwift/blob/main/project6a_screen3.png?raw=true" width="200" height="400"> <img src="https://github.com/d-llirium/100daysOfSwift/blob/main/project6a_screen4.png?raw=true" width="200" height="400"> <img src="https://github.com/d-llirium/100daysOfSwift/blob/main/project6a_screen5.png?raw=true" width="200" height="400"> 
 
 ### . [project6b](https://github.com/d-llirium/100daysOfSwift/blob/main/Project6b/README.md)
 
