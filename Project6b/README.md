@@ -1,7 +1,19 @@
-# [ - project 6b .100days of swift](https://www.hackingwithswift.com/100)
-from days [30](https://www.hackingwithswift.com/100/30) and [31](https://www.hackingwithswift.com/100/31)
+# [project 6b from 100 days of swift](https://www.hackingwithswift.com/100)
+#### . [day ****](https://www.hackingwithswift.com/100/****)
+#### . [day ****](https://www.hackingwithswift.com/100/****)
+##### .. TOPICS: 
+... ****
 
-## project 6b with challenges
+##### .. IMPLEMENTATION:
+1. ****
+
 ### resolution by d_llirium
 
-![](<https://github.com/d-llirium/autolayout-VFL/blob/main/AutolayuotVFL.gif?raw=true>)
+![](https://github.com/d-llirium/100daysOfSwift/blob/main/Project6b/AutoLayout.gif?raw=true)
+
+####  . day [**** challenge](https://www.hackingwithswift.com/100/****)
+1.  ****
+##### .. at ViewController
+    //
+    ****
+    //
