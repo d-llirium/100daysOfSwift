@@ -16,7 +16,7 @@ class ViewController: UITableViewController {
         super.viewDidLoad()
         //day 35 - Challenge 1: Add a Credits button to the top-right corner using UIBarButtonItem.
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "credits", style: .plain, target: self, action: #selector(popCredit))
-        
+        //day 40. Challenge 3: Modify project 7 so that your filtering code takes place in the background. This filtering code was added in one of the challenges for the project, so hopefully you didn’t skip it!
         //day 35 - Challenge 2: Let users filter the petitions they see. This involves creating a second array of filtered items that contains only petitions matching a string the user entered. Use a UIAlertController with a text field to let them enter that string. This is a tough one, so I’ve included some hints below if you get stuck.
         let searchItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(popSearch))
         
@@ -65,10 +65,10 @@ class ViewController: UITableViewController {
         let searchButton = UIAlertAction(title: ".. seach", style: .default) { [weak self, weak ac] action in
                 guard let searchWord = ac?.textFields?[0].text else { return }
                 self?.searchFor(searchWord)
-            }
-            ac.addAction(searchButton)
-            present(ac, animated: true)
         }
+        ac.addAction(searchButton)
+        present(ac, animated: true)
+    }
     func searchFor (_ searchWord: String) {
         if searchWord.isEmpty {
             self.reloadPetitions()
