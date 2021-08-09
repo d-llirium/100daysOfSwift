@@ -40,7 +40,7 @@
 
 ### . [project8](https://github.com/d-llirium/100daysOfSwift/blob/main/Project8/README.md)
 
-<img src="https://github.com/d-llirium/100daysOfSwift/blob/main/project8_screen1.png?raw=true" width="200" height="400"> <img src="https://github.com/d-llirium/100daysOfSwift/blob/main/project8_screen2.png?raw=true" width="200" height="400"> <img src="https://github.com/d-llirium/100daysOfSwift/blob/main/project8_screen3.png?raw=true" width="200" height="400"> <img src="https://github.com/d-llirium/100daysOfSwift/blob/main/project8_screen4.png?raw=true" width="200" height="400">
+<img src="https://github.com/d-llirium/100daysOfSwift/blob/main/project8_screen1.png?raw=true" width="400" height="300"> <img src="https://github.com/d-llirium/100daysOfSwift/blob/main/project8_screen2.png?raw=true" width="400" height="300"> <img src="https://github.com/d-llirium/100daysOfSwift/blob/main/project8_screen3.png?raw=true" width="400" height="300"> <img src="https://github.com/d-llirium/100daysOfSwift/blob/main/project8_screen4.png?raw=true" width="400" height="300">
 
 ### . [project9](https://github.com/d-llirium/100daysOfSwift/blob/main/Project9/README.md)
 
