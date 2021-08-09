@@ -99,5 +99,44 @@
 1. Modify project 7 so that your filtering code takes place in the background. This filtering code was added in one of the challenges for the project, so hopefully you didn’t skip it!
 ##### .. at ViewController
     //
-    
+    override func viewDidLoad() {
+        //
+        let searchItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(popSearch))
+        //
+    }
+    //
+    //
+    @objc func popSearch(){
+        let ac = UIAlertController(title: "Enter expression", message: nil, preferredStyle: .alert)
+        
+        ac.addTextField()
+        
+        let searchButton = UIAlertAction(title: ".. seach", style: .default) { 
+            [weak self, weak ac] action in
+                guard let searchWord = ac?.textFields?[0].text else { return }
+                self?.performSelector(inBackground: #selector(self?.searchFor), with: searchWord)
+        }
+        ac.addAction(searchButton)
+        present(ac, animated: true)
+        }
+    @objc func searchFor (_ searchWord: String) {
+        if searchWord.isEmpty {
+            performSelector(onMainThread: #selector(reloadPetitions), with: nil, waitUntilDone: false)
+        }else {
+            self.filteredPetitions = self.noPetitions
+            for i in 0...self.allPetitions.count-1 {
+                if allPetitions[i].title.contains(searchWord) || allPetitions[i].body.contains(searchWord) {
+                    self.filteredPetitions.append(allPetitions[i])
+                }
+            }
+           performSelector(onMainThread: #selector(reloadTableViewData), with: nil, waitUntilDone: false)
+        }
+    }
+    @objc func reloadTableViewData(){
+        tableView.reloadData()
+    }
+    @objc func reloadPetitions(){
+        self.filteredPetitions = self.allPetitions
+        tableView.reloadData()
+    }
     //

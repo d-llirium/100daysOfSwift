@@ -11,10 +11,11 @@ class ViewController: UITableViewController {
     var allPetitions = [Petition]()
     let noPetitions = [Petition]()
     var filteredPetitions = [Petition]()
+    var tag = Int()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         performSelector(inBackground: #selector(fetchJSON), with: nil)//pass it the name of a method to run, and inBackground will run it on a background thread
         
         //day 35 - Challenge 1: Add a Credits button to the top-right corner using UIBarButtonItem.
@@ -29,7 +30,8 @@ class ViewController: UITableViewController {
     }
     @objc func fetchJSON(){
         let urlString: String
-        if navigationController?.tabBarItem.tag == 0 { //the first instance of ViewController loads the original JSON
+        performSelector(onMainThread: #selector(checkTag), with: nil, waitUntilDone: true)
+        if tag == 0 { //the first instance of ViewController loads the original JSON
             urlString = "https://www.hackingwithswift.com/samples/petitions-1.json" //urlString accessing the available petitions.
         } else {//the second loads only petitions that have at least 10,000 signatures
             urlString = "https://www.hackingwithswift.com/samples/petitions-2.json"
@@ -42,13 +44,19 @@ class ViewController: UITableViewController {
         }
         performSelector(onMainThread: #selector(showError), with: nil, waitUntilDone: false) //wil run the showError on the Main thread
     }
+    @objc func checkTag(){
+        if navigationController?.tabBarItem.tag == 0 {
+            tag = 0
+        } else {
+            tag = 1
+        }
+    }
     func parse(json: Data) {
         let decoder = JSONDecoder()//creates an instance of JSONDecoder, which is dedicated to converting between JSON and Codable objects.
         
         if let jsonPetitions = try? decoder.decode(Petitions.self, from: json) {//calls the decode() method on that decoder, asking it to convert our json data into a Petitions object. This is a throwing call, so we use try? to check whether it worked.---Petitions.self, which is Swift’s way of referring to the Petitions type itself rather than an instance of it. That is, we’re not saying “create a new one”, but instead specifying it as a parameter to the decoding so JSONDecoder knows what to convert the JSON too.
-            self.allPetitions = jsonPetitions.results//assign the results array to our petitions property
-            self.filteredPetitions = allPetitions
-            tableView.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)//reload the tableView on the main thread when the load is finished
+            allPetitions = jsonPetitions.results//assign the results array to our petitions property
+            performSelector(onMainThread: #selector(reloadPetitions), with: nil, waitUntilDone: false)//reload the tableView on the main thread when the load is finished
         } else {
             performSelector(onMainThread: #selector(showError), with: nil, waitUntilDone: false)
         }
@@ -70,14 +78,15 @@ class ViewController: UITableViewController {
         ac.addTextField()
         let searchButton = UIAlertAction(title: ".. seach", style: .default) { [weak self, weak ac] action in
                 guard let searchWord = ac?.textFields?[0].text else { return }
-                self?.searchFor(searchWord)
+            self?.performSelector(inBackground: #selector(self?.searchFor), with: searchWord)
             }
-            ac.addAction(searchButton)
-            present(ac, animated: true)
+        ac.addAction(searchButton)
+        present(ac, animated: true)
         }
-    func searchFor (_ searchWord: String) {
+    //day 40 - Challenge 3: Modify project 7 so that your filtering code takes place in the background. This filtering code was added in one of the challenges for the project, so hopefully you didn’t skip it!
+    @objc func searchFor (_ searchWord: String) {
         if searchWord.isEmpty {
-            self.reloadPetitions()
+            performSelector(onMainThread: #selector(reloadPetitions), with: nil, waitUntilDone: false)
         }else {
             self.filteredPetitions = self.noPetitions
             for i in 0...self.allPetitions.count-1 {
@@ -85,14 +94,16 @@ class ViewController: UITableViewController {
                     self.filteredPetitions.append(allPetitions[i])
                 }
             }
+           performSelector(onMainThread: #selector(reloadTableViewData), with: nil, waitUntilDone: false)
         }
+    }
+    @objc func reloadTableViewData(){
         tableView.reloadData()
     }
     @objc func reloadPetitions(){
         self.filteredPetitions = self.allPetitions
         tableView.reloadData()
     }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredPetitions.count
     }
